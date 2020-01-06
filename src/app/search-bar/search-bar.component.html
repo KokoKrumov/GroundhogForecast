@@ -1,0 +1,41 @@
+<form #f="ngForm" (ngSubmit)="submit(f)">
+    <div ngModelGroup="searchBox">
+        <mat-form-field class="example-full-width">
+            <input type="search"
+                   pattern='^[a-zA-Z\s]*$'
+                   matInput
+                   [(ngModel)]="resetCity"
+                   #city='ngModel'
+                   name="city"
+                   id="city"
+                   placeholder="City">
+            <mat-error *ngIf="city.touched && !city.valid">
+                <div *ngIf="city.errors.pattern">
+                    Please enter a valid pattern
+                </div>
+            </mat-error>
+        </mat-form-field>
+
+    </div>
+    <div ngModelGroup="radioButtons">
+        <label id="example-radio-group-label">Choose C or F</label>
+        <div>
+            <mat-radio-group
+                    required
+                    [(ngModel)]="defaultWeatherType"
+                    aria-label="Select an option"
+                    name='weatherType'
+                    [value]="defaultWeatherType">
+                <mat-radio-button
+                        *ngFor="let weatherType of weatherTypes"
+                        [value]='weatherType'
+                        name="weatherType">
+                    {{weatherType}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <button mat-raised-button color="primary" [disabled]="!f.valid">Primary</button>
+</form>
+
+

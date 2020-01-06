@@ -1,0 +1,9 @@
+<ul>
+    <li *ngFor="let city of historyList">
+        <a class="link"
+           routerLink="/"
+           [queryParams]="{city: city}">
+            {{city}}
+        </a>
+    </li>
+</ul>

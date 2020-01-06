@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
-export class AppComponent  {
-  name = 'Angular';
+export class AppComponent implements OnInit {
+    title = 'groundhog-forecast';
+
+    ngOnInit() {
+    }
+
+    constructor() {
+    }
 }

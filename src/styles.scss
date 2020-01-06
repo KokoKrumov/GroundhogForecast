@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~node_modules/bootstrap/scss/bootstrap-reboot";
+@import "~node_modules/bootstrap/scss/bootstrap-grid";
+
+body {
+  padding: 30px;
+}
+
+.data-background {
+  padding-top: 125px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
