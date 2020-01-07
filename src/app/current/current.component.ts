@@ -42,7 +42,6 @@ export class CurrentComponent implements OnInit {
         this.configService.getConfig(searchType, cityData)
             .subscribe(
                 (data: any) => {
-                  console.log(da);
                     if (data.success === false) {
                         this.objWeather.name = data.error.info;
                         this.error = true;
@@ -64,7 +63,7 @@ export class CurrentComponent implements OnInit {
                         }
                     }
                     // @ToDo show 3 times?!
-                    
+                    console.log(data);
                 }
             );
     }
@@ -73,7 +72,8 @@ export class CurrentComponent implements OnInit {
         this.activeRoute.queryParams.subscribe(queryParams => {
             this.showConfig(this.searchType, queryParams.city);
             this.historyList.emit(this.objWeather.historyList);
-            console.log('this.', this.error);
+            console.log('this.error', this.error);
+            console.log('error', this.objWeather.name);
         });
 
         this.router.events.subscribe(
@@ -83,7 +83,7 @@ export class CurrentComponent implements OnInit {
                     // this.activeRoute.queryParams.subscribe(queryParams => {
                     //     this.showConfig(this.searchType, queryParams.city);
                     //     this.historyList.emit(this.objWeather.historyList);
-                    console.log('this.error', this.error);
+                    // console.log('this.error', this.error);
                     // });
                 }
             }
