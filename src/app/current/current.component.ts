@@ -42,6 +42,7 @@ export class CurrentComponent implements OnInit {
         this.configService.getConfig(searchType, cityData)
             .subscribe(
                 (data: any) => {
+                  console.log(da);
                     if (data.success === false) {
                         this.objWeather.name = data.error.info;
                         this.error = true;
@@ -63,7 +64,7 @@ export class CurrentComponent implements OnInit {
                         }
                     }
                     // @ToDo show 3 times?!
-                    console.log(data);
+                    
                 }
             );
     }
