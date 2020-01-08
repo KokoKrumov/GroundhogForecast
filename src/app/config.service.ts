@@ -5,7 +5,7 @@ import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class ConfigService {
-    configUrl = 'https://api.weatherstack.com/';
+    configUrl = 'http://api.weatherstack.com/';
     configKeyAccess = '8041007c47c49b56b72d5dc0c62c7279';
 
     constructor(private http: HttpClient) {
@@ -17,7 +17,7 @@ export class ConfigService {
             + searchType
             + '?access_key=' + this.configKeyAccess
             + '&query=' + city
-            // + '&forecast_days=' + forecastDays
+            + '&forecast_days=' + forecastDays
         );
     }
 
