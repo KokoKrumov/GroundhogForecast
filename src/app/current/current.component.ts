@@ -90,24 +90,24 @@ export class CurrentComponent implements OnInit {
     //   );
 
 
-    // this.activeRoute.queryParams.subscribe(queryParams => {
-    //   this.showConfig(this.searchType, queryParams.city);
-    //   this.historyList.emit(this.objWeather.historyList);
-    //   console.log('this.error', this.error);
-    //   console.log('error', this.objWeather.name);
-    // });
+    this.activeRoute.queryParams.subscribe(queryParams => {
+      this.showConfig(this.searchType, queryParams.city);
+      this.historyList.emit(this.objWeather.historyList);
+      console.log('this.error', this.error);
+      console.log('error', this.objWeather.name);
+    });
 
-    this.router.events.subscribe(
-      (event: RouterEvent) => {
-        // show data after navigation ends
-        if (event instanceof NavigationEnd) {
-          this.activeRoute.queryParams.subscribe(queryParams => {
-            this.showConfig(this.searchType, queryParams.city);
-            this.historyList.emit(this.objWeather.historyList);
-            console.log('emit');
-          });
-        }
-      }
-    );
+    // this.router.events.subscribe(
+    //   (event: RouterEvent) => {
+    //     // show data after navigation ends
+    //     if (event instanceof NavigationEnd) {
+    //       this.activeRoute.queryParams.subscribe(queryParams => {
+    //         this.showConfig(this.searchType, queryParams.city);
+    //         this.historyList.emit(this.objWeather.historyList);
+    //         console.log('emit');
+    //       });
+    //     }
+    //   }
+    // );
   }
 }
