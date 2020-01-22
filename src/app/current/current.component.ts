@@ -17,7 +17,7 @@ export class CurrentComponent implements OnInit {
   @Output() historyList = new EventEmitter();
 
   error = false;
-  searchType = 'current';
+  days = 1;
 
   navigationEnds: Observable<NavigationEnd>;
   routePathParam: Observable<string>;
@@ -43,33 +43,34 @@ export class CurrentComponent implements OnInit {
     historyList: [],
   };
 
-  showConfig(searchType, cityData) {
-    this.configService.getConfig(searchType, cityData)
+  showConfig(cityData, days) {
+    this.configService.getConfig(cityData, days)
       .subscribe(
         (data: any) => {
-          if (data.success === false) {
-            this.objWeather.name = data.error.info;
-            this.error = true;
-          } else {
-            this.error = false;
-            this.objWeather.name = data.location.name;
-            this.objWeather.weatherType = '';
-            this.objWeather.weatherIcon = data.current.weather_icons[0];
-            this.objWeather.region = data.location.region;
-            this.objWeather.description = data.current.weather_descriptions;
-            this.objWeather.country = data.location.country;
-            this.objWeather.temperature = data.current.temperature;
-            this.objWeather.feelsLike = data.current.feelslike;
-            this.objWeather.humidity = data.current.humidity;
-            this.objWeather.windSpeed = data.current.wind_speed;
-
-            if (!this.objWeather.historyList.includes(this.objWeather.name)) {
-              this.objWeather.historyList.push(this.objWeather.name);
-            }
-          }
-
-          // @ToDo show 3 times?!
           console.log(data);
+          // if (data.success === false) {
+          //   this.objWeather.name = data.error.info;
+          //   this.error = true;
+          // } else {
+          //   this.error = false;
+          //   this.objWeather.name = data.location.name;
+          //   this.objWeather.weatherType = '';
+          //   this.objWeather.weatherIcon = data.current.weather_icons[0];
+          //   this.objWeather.region = data.location.region;
+          //   this.objWeather.description = data.current.weather_descriptions;
+          //   this.objWeather.country = data.location.country;
+          //   this.objWeather.temperature = data.current.temperature;
+          //   this.objWeather.feelsLike = data.current.feelslike;
+          //   this.objWeather.humidity = data.current.humidity;
+          //   this.objWeather.windSpeed = data.current.wind_speed;
+          //
+          //   if (!this.objWeather.historyList.includes(this.objWeather.name)) {
+          //     this.objWeather.historyList.push(this.objWeather.name);
+          //   }
+          // }
+          //
+          // // @ToDo show 3 times?!
+          // console.log(data);
         }
       );
   }
@@ -91,7 +92,7 @@ export class CurrentComponent implements OnInit {
 
 
     this.activeRoute.queryParams.subscribe(queryParams => {
-      this.showConfig(this.searchType, queryParams.city);
+      this.showConfig(queryParams.city, this.days);
       this.historyList.emit(this.objWeather.historyList);
       console.log('this.error', this.error);
       console.log('error', this.objWeather.name);

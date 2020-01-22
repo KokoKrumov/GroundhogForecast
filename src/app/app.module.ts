@@ -20,6 +20,7 @@ import {HomeComponent} from './home/home.component';
 import {TabsComponent} from './tabs/tabs.component';
 import {HistoryComponent} from './history/history.component';
 import {DaysComponent} from './days/days.component';
+import { SplitPipe } from './split.pipe';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {DaysComponent} from './days/days.component';
         HomeComponent,
         TabsComponent,
         HistoryComponent,
-        DaysComponent
+        DaysComponent,
+        SplitPipe
     ],
     imports: [
         BrowserModule,

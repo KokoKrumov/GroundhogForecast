@@ -5,19 +5,19 @@ import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class ConfigService {
-    configUrl = 'http://api.weatherstack.com/';
-    configKeyAccess = '8041007c47c49b56b72d5dc0c62c7279';
+    // configUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY';
+    configUrl = 'https://api.weatherbit.io/v2.0/forecast/daily';
+    configKeyAccess = '9d272f49baa54cb18637c2a64ca23340';
 
     constructor(private http: HttpClient) {
     }
 
-    getConfig(searchType, city, forecastDays?) {
+    getConfig(city: string, days: number) {
         return this.http.get<[]>(
             this.configUrl
-            + searchType
-            + '?access_key=' + this.configKeyAccess
-            + '&query=' + city
-            + '&forecast_days=' + forecastDays
+            + '?city=' + city
+            + '&days=' + days
+            + '&key=' + this.configKeyAccess
         );
     }
 
