@@ -19,7 +19,8 @@ export class PlacesService {
     return this.http.get<[]>(
       this.configUrl
       + city
-      // + '&language=en'
+      + '&types=(cities)'
+      + '&language=en'
       + '&key=' + this.configKeyAccess
     );
   }

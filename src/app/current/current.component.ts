@@ -43,8 +43,8 @@ export class CurrentComponent implements OnInit {
     historyList: [],
   };
 
-  showConfig(cityData, days) {
-    this.configService.getConfig(cityData, days)
+  showConfig(cityData, country, days) {
+    this.configService.getConfig(cityData, country, days)
       .subscribe(
         (data: any) => {
           console.log(data);
@@ -92,7 +92,7 @@ export class CurrentComponent implements OnInit {
 
 
     this.activeRoute.queryParams.subscribe(queryParams => {
-      this.showConfig(queryParams.city, this.days);
+      this.showConfig(queryParams.city, queryParams.country, this.days);
       this.historyList.emit(this.objWeather.historyList);
       console.log('this.error', this.error);
       console.log('error', this.objWeather.name);

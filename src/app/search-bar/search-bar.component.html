@@ -21,8 +21,8 @@
       <li *ngFor="let city of listCities">
         <a class="link"
            routerLink="/"
-           [queryParams]="{city: city}">
-          {{city}}
+           [queryParams]="{city: city.city, country: city.country }">
+          {{city.city}}, {{city.country}}
         </a>
       </li>
     </ul>

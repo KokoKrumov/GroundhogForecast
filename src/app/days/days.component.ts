@@ -38,8 +38,8 @@ export class DaysComponent implements OnInit {
     historyList: [],
   };
 
-  showConfig(cityData, days) {
-    this.configService.getConfig(cityData, days)
+  showConfig(cityData, country, days) {
+    this.configService.getConfig(cityData, country, days)
       .subscribe(
 
         (data: any) => {
@@ -56,7 +56,7 @@ export class DaysComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.queryParams.subscribe(queryParams => {
-      this.showConfig(queryParams.city, this.days);
+      this.showConfig(queryParams.city, queryParams.country, this.days);
     });
   }
 

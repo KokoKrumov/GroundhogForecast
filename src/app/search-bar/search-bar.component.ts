@@ -1,6 +1,7 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlacesService} from '../places.service';
+import {City} from '../interfaces/city';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SearchBarComponent implements OnInit {
 
   @Output() emitCityData = new EventEmitter();
 
-  listCities = [];
+  listCities: City[] = [];
 
   defaultWeatherType = 'celsius';
   resetCity = '';
@@ -38,7 +39,7 @@ export class SearchBarComponent implements OnInit {
     this.places.getPlaces(city)
       .subscribe((data: any) => {
         data.predictions.map((item) => {
-          this.listCities.push(item.description);
+          this.listCities.push({city: item.terms[0].value, country: item.terms[1].value});
         });
       });
     console.log(this.listCities);
