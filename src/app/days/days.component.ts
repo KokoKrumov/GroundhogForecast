@@ -14,8 +14,8 @@ export class DaysComponent implements OnInit {
   // @Output() historyList = new EventEmitter();
 
   error = false;
-  searchType = 'forecast';
-  forecastDays = 5;
+  // searchType = 'forecast';
+  days = 5;
 
   constructor(
     public configService: ConfigService,
@@ -38,8 +38,8 @@ export class DaysComponent implements OnInit {
     historyList: [],
   };
 
-  showConfig(cityData) {
-    this.configService.getConfig(cityData)
+  showConfig(cityData, days) {
+    this.configService.getConfig(cityData, days)
       .subscribe(
 
         (data: any) => {
@@ -56,7 +56,7 @@ export class DaysComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.queryParams.subscribe(queryParams => {
-      this.showConfig(queryParams.city);
+      this.showConfig(queryParams.city, this.days);
     });
   }
 
