@@ -47,50 +47,37 @@ export class CurrentComponent implements OnInit {
     this.configService.getConfig(cityData, country, days)
       .subscribe(
         (data: any) => {
-          console.log(data);
-          // if (data.success === false) {
-          //   this.objWeather.name = data.error.info;
-          //   this.error = true;
-          // } else {
-          //   this.error = false;
-          //   this.objWeather.name = data.location.name;
-          //   this.objWeather.weatherType = '';
-          //   this.objWeather.weatherIcon = data.current.weather_icons[0];
-          //   this.objWeather.region = data.location.region;
-          //   this.objWeather.description = data.current.weather_descriptions;
-          //   this.objWeather.country = data.location.country;
-          //   this.objWeather.temperature = data.current.temperature;
-          //   this.objWeather.feelsLike = data.current.feelslike;
-          //   this.objWeather.humidity = data.current.humidity;
-          //   this.objWeather.windSpeed = data.current.wind_speed;
-          //
-          //   if (!this.objWeather.historyList.includes(this.objWeather.name)) {
-          //     this.objWeather.historyList.push(this.objWeather.name);
-          //   }
-          // }
-          //
-          // // @ToDo show 3 times?!
-          // console.log(data);
+          console.log('data ', data);
+          if (!data) {
+            // @ToDo изкарай лист с autocomlpleated градове както на sinoptik
+            // @ToDo ма малки градове, които weather api-то не отчита
+
+            //   this.objWeather.name = data.error.info;
+            this.error = true;
+            console.log('null e');
+          } else {
+            this.error = false;
+            this.objWeather.name = data.city_name;
+            this.objWeather.weatherType = '';
+            this.objWeather.weatherIcon = data.data[0].weather.icon;
+            this.objWeather.region = data.state_code;
+            this.objWeather.description = data.data[0].weather.description;
+            this.objWeather.country = data.country_code;
+            this.objWeather.temperature = data.data[0].temp;
+            this.objWeather.feelsLike = data.data[0].app_max_temp;
+            this.objWeather.humidity = data.data[0].rh;
+            this.objWeather.windSpeed = data.data[0].wind_spd;
+
+            if (!this.objWeather.historyList.includes(this.objWeather.name)) {
+              // @ToDo make history list work
+              this.objWeather.historyList.push(this.objWeather.name);
+            }
+          }
         }
       );
   }
 
   ngOnInit() {
-    // this.routePathParam = this.navigationEnds
-    //   .pipe(
-    //     map(() => this.activeRoute.root),
-    //     map(root => root.firstChild),
-    //     switchMap(firstChild => {
-    //       if (firstChild && firstChild.firstChild) {
-    //         const targetRoute = firstChild.firstChild;
-    //         return targetRoute.paramMap.pipe(map(paramMap => paramMap.get('subRoutePathParam')));
-    //       } else {
-    //         return of(null);
-    //       }
-    //     })
-    //   );
-
-
     this.activeRoute.queryParams.subscribe(queryParams => {
       this.showConfig(queryParams.city, queryParams.country, this.days);
       this.historyList.emit(this.objWeather.historyList);

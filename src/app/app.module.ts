@@ -7,6 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -44,7 +45,8 @@ import { SplitPipe } from './split.pipe';
         MatButtonModule,
         MatRadioModule,
         MatCheckboxModule,
-        MatTabsModule
+        MatTabsModule,
+        MatAutocompleteModule
     ],
     providers: [
         ConfigService

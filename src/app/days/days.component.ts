@@ -39,19 +39,19 @@ export class DaysComponent implements OnInit {
   };
 
   showConfig(cityData, country, days) {
-    this.configService.getConfig(cityData, country, days)
-      .subscribe(
-
-        (data: any) => {
-          if (data.success === false) {
-            this.objWeather.name = data.error.info;
-            this.error = true;
-          } else {
-            this.error = false;
-            this.objWeather.name = data.location.name;
-          }
-        }
-      );
+    // this.configService.getConfig(cityData, country, days)
+    //   .subscribe(
+    //
+    //     (data: any) => {
+    //       if (data.success === false) {
+    //         this.objWeather.name = data.error.info;
+    //         this.error = true;
+    //       } else {
+    //         this.error = false;
+    //         this.objWeather.name = data.location.name;
+    //       }
+    //     }
+    //   );
   }
 
   ngOnInit() {

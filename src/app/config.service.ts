@@ -11,7 +11,6 @@ export class ConfigService {
 
     constructor(private http: HttpClient) {
     }
-
     getConfig(city: string, country: string, days: number) {
         return this.http.get<[]>(
             this.configUrl
