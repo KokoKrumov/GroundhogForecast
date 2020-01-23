@@ -10,4 +10,5 @@ export interface ObjWeather {
     humidity: number;
     windSpeed: number;
     historyList: Array<string>;
+    days: Array<object>;
 }

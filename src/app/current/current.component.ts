@@ -41,13 +41,14 @@ export class CurrentComponent implements OnInit {
     humidity: undefined,
     windSpeed: undefined,
     historyList: [],
+    days: []
   };
 
   showConfig(cityData, country, days) {
     this.configService.getConfig(cityData, country, days)
       .subscribe(
         (data: any) => {
-          console.log('data ', data);
+          // console.log('data ', data);
           if (!data) {
             // @ToDo изкарай лист с autocomlpleated градове както на sinoptik
             // @ToDo ма малки градове, които weather api-то не отчита
