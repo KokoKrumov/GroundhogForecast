@@ -55,7 +55,7 @@ export class CurrentComponent implements OnInit {
 
             //   this.objWeather.name = data.error.info;
             this.error = true;
-            console.log('null e');
+            console.log('not current day ', data);
           } else {
             this.error = false;
             this.objWeather.name = data.city_name;

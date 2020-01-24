@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConfigService} from '../config.service';
 import {ActivatedRoute, NavigationEnd, Router, RouterEvent} from '@angular/router';
-import {ObjWeather} from '../interfaces/obj-weather';
+import {Days} from '../interfaces/days';
 
 @Component({
   selector: 'app-days',
@@ -24,34 +24,39 @@ export class DaysComponent implements OnInit {
   ) {
   }
 
-  objWeather: ObjWeather = {
+  objWeatherDay: Days[] = [{
     weatherType: '',
-    name: '',
+    max_temp: undefined,
+    min_temp: undefined,
     weatherIcon: '',
-    region: '',
-    country: '',
-    temperature: undefined,
-    description: '',
-    feelsLike: undefined,
+    weatherDescription: '',
     humidity: undefined,
     windSpeed: undefined,
-    historyList: [],
-    days: [],
-  };
+  }];
 
   showConfig(cityData, country, days) {
     this.configService.getConfig(cityData, country, days)
       .subscribe(
         (data: any) => {
-          this.objWeather.days = data.data;
-          console.log(this.objWeather.days);
-          // if (data.success === false) {
-          //   this.objWeather.name = data.error.info;
-          //   this.error = true;
-          // } else {
-          //   this.error = false;
-          //   this.objWeather.name = data.location.name;
-          // }
+          if (!data) {
+            console.log('not days: ', data);
+            this.error = true;
+          } else {
+            data.data.map(x => {
+              this.objWeatherDay.push(
+                {
+                  humidity: x.rh,
+                  min_temp: x.min_temp,
+                  weatherIcon: x.weather.icon,
+                  weatherDescription: x.weather.description,
+                  weatherType: '',
+                  windSpeed: x.wind_spd,
+                  max_temp: x.max_temp
+                }
+              );
+            });
+            this.error = false;
+          }
         }
       );
   }
