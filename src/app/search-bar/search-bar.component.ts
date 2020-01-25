@@ -2,6 +2,9 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlacesService} from '../places.service';
 import {City} from '../interfaces/city';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 
 @Component({
@@ -18,8 +21,9 @@ export class SearchBarComponent implements OnInit {
   }
 
   @Output() emitCityData = new EventEmitter();
-
+  myControl = new FormControl();
   listCities: City[] = [];
+  filteredOptions: Observable<City[]>;
 
   defaultWeatherType = 'celsius';
   resetCity = '';
@@ -34,6 +38,12 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  private _filter(value: string): City[] {
+    const filterValue = value;
+
+    return this.listCities.filter(option => option.city.toLowerCase().indexOf(filterValue) === 0);
+  }
+
   searchForCity(city) {
     // this.listCities = [];
     this.places.getPlaces(city)
@@ -42,6 +52,10 @@ export class SearchBarComponent implements OnInit {
           this.listCities.push({city: item.terms[0].value, country: item.terms[1].value});
         });
       });
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+      );
     console.log(this.listCities);
   }
 

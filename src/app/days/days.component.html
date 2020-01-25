@@ -1,3 +1,29 @@
-<p>
-<!--  {{objWeather.name}}-->
-</p>
+<div>
+    <h1>
+        City: {{objWeather.name}}
+    </h1>
+    <p>
+        Country: {{objWeather.country}}
+    </p>
+    <p>
+        Region: {{objWeather.region}}
+    </p>
+
+</div>
+<div>
+    <ul>
+        <li *ngFor="let day of objWeather.days">
+            <div class="row">
+                <div class="col">
+                    {{day.datetime}}
+                </div>
+                <div class="col">
+                    {{day.max_temp}}
+                </div>
+                <div class="col">
+                    <P>{{day.weatherDescription}}</P>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

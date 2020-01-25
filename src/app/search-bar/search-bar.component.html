@@ -1,33 +1,33 @@
 <form #f="ngForm" (ngSubmit)="submit(f)">
-  <div ngModelGroup="searchBox">
-    <mat-form-field class="example-full-width">
-      <input type="search"
-             pattern='^[a-zA-Z\s]*$'
-             matInput
-             (keyup)="searchForCity(resetCity)"
-             [(ngModel)]="resetCity"
-             #city='ngModel'
-             name="city"
-             id="city"
-             placeholder="City">
-
-      <mat-error *ngIf="city.touched && !city.valid">
-        <div *ngIf="city.errors.pattern">
-          Please enter a valid pattern
-        </div>
-      </mat-error>
-    </mat-form-field>
-    <ul>
-      <li *ngFor="let city of listCities">
-        <a class="link"
-           routerLink="/"
-           [queryParams]="{city: city.city, country: city.country }">
-          {{city.city}}, {{city.country}}
-        </a>
-      </li>
-    </ul>
-  </div>
-  <button mat-raised-button color="primary" [disabled]="!f.valid">Primary</button>
+    <div ngModelGroup="searchBox">
+        <mat-form-field class="example-full-width">
+            <input type="search"
+                   pattern='^[a-zA-Z\s]*$'
+                   matInput
+                   [matAutocomplete]="auto"
+                   (keyup)="searchForCity(resetCity)"
+                   [(ngModel)]="resetCity"
+                   #city='ngModel'
+                   name="city"
+                   id="city"
+                   placeholder="City">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.city">
+                    <a class="link"
+                       routerLink="/"
+                       [queryParams]="{city: option.city, country: option.country }">
+                        {{option.city}}, {{option.country}}
+                    </a>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="city.touched && !city.valid">
+                <div *ngIf="city.errors.pattern">
+                    Please enter a valid pattern
+                </div>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" [disabled]="!f.valid">Primary</button>
 </form>
 
 

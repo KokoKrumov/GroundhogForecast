@@ -30,18 +30,18 @@ export class CurrentComponent implements OnInit {
   }
 
   objWeather: ObjWeather = {
-    weatherType: '',
-    name: '',
-    weatherIcon: '',
-    region: '',
-    country: '',
-    temperature: undefined,
-    description: '',
-    feelsLike: undefined,
-    humidity: undefined,
-    windSpeed: undefined,
-    historyList: [],
-    days: []
+      weatherType: '',
+      name: '',
+      weatherIcon: '',
+      region: '',
+      country: '',
+      temperature: undefined,
+      description: '',
+      feelsLike: undefined,
+      humidity: undefined,
+      windSpeed: undefined,
+      historyList: [],
+      days: []
   };
 
   showConfig(cityData, country, days) {
@@ -60,10 +60,10 @@ export class CurrentComponent implements OnInit {
             this.error = false;
             this.objWeather.name = data.city_name;
             this.objWeather.weatherType = '';
-            this.objWeather.weatherIcon = data.data[0].weather.icon;
             this.objWeather.region = data.state_code;
-            this.objWeather.description = data.data[0].weather.description;
-            this.objWeather.country = data.country_code;
+              this.objWeather.country = data.country_code;
+              this.objWeather.weatherIcon = data.data[0].weather.icon;
+              this.objWeather.description = data.data[0].weather.description;
             this.objWeather.temperature = data.data[0].temp;
             this.objWeather.feelsLike = data.data[0].app_max_temp;
             this.objWeather.humidity = data.data[0].rh;

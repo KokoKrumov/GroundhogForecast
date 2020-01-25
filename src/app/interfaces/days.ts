@@ -6,4 +6,5 @@ export interface Days {
   weatherDescription: string;
   humidity: number;
   windSpeed: number;
+  datetime: number;
 }
