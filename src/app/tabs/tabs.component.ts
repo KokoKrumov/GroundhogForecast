@@ -15,8 +15,8 @@ export class TabsComponent implements OnInit {
     ngOnInit() {
     }
 
-    addInHistoryList(city) {
-        this.historyList = city;
+    addInHistoryList(cities) {
+        this.historyList = cities;
     }
 
 }

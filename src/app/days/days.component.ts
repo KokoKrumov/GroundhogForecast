@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ConfigService} from '../config.service';
 import {ActivatedRoute, NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {Days} from '../interfaces/days';
@@ -11,12 +11,12 @@ import {ObjWeather} from '../interfaces/obj-weather';
 })
 export class DaysComponent implements OnInit {
 
-    // @Input() weatherDataFromTabs: any;
-    // @Output() historyList = new EventEmitter();
+    @Input() numberOfDays: number;
+    @Output() objWeathercurrent: EventEmitter<any> = new EventEmitter();
 
     error = false;
     // searchType = 'forecast';
-    days = 5;
+    days = this.numberOfDays;
 
     constructor(
         public configService: ConfigService,
@@ -36,13 +36,12 @@ export class DaysComponent implements OnInit {
         feelsLike: undefined,
         humidity: undefined,
         windSpeed: undefined,
-        historyList: [],
         days: []
     };
 
-    showConfig(cityData, country, days) {
+    showConfig(cityData, days) {
         this.objWeather.days = [];
-        this.configService.getConfig(cityData, country, days)
+        this.configService.getConfig(cityData, days)
             .subscribe(
                 (data: any) => {
                     if (!data) {
@@ -52,10 +51,12 @@ export class DaysComponent implements OnInit {
                         this.objWeather.name = data.city_name;
                         this.objWeather.weatherType = '';
                         this.objWeather.region = data.state_code;
+                        this.objWeather.country = data.country_code;
 
                         data.data.map(x => {
                             this.objWeather.days.push(
                                 {
+                                    temperature: x.temp,
                                     humidity: x.rh,
                                     min_temp: x.min_temp,
                                     weatherIcon: x.weather.icon,
@@ -67,8 +68,9 @@ export class DaysComponent implements OnInit {
                                 }
                             );
                         });
-                        console.log(data);
                         this.error = false;
+                        this.objWeathercurrent.emit(this.objWeather);
+                        console.log('emit ', this.objWeathercurrent);
                     }
                 }
             );
@@ -76,26 +78,7 @@ export class DaysComponent implements OnInit {
 
     ngOnInit() {
         this.activeRoute.queryParams.subscribe(queryParams => {
-            this.showConfig(queryParams.city, queryParams.country, this.days);
+            this.showConfig(queryParams.city, this.numberOfDays);
         });
-    }
-
-    submit() {
-        // this.activeRoute.queryParams.subscribe(queryParams => {
-        //   this.showConfig(this.searchType, queryParams.city, this.forecastDays);
-        //   this.historyList.emit(this.objWeather.historyList);
-        // });
-        // console.log('click')
-        // this.router.events.subscribe(
-        //     (event: RouterEvent) => {
-        //         // show data after navigation ends
-        //         if (event instanceof NavigationEnd) {
-        //             this.activeRoute.queryParams.subscribe(queryParams => {
-        //                 this.showConfig(this.searchType, queryParams.city, this.forecastDays);
-        //                 this.historyList.emit(this.objWeather.historyList);
-        //             });
-        //         }
-        //     }
-        // );
     }
 }

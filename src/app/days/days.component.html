@@ -1,29 +1,57 @@
 <div>
-    <h1>
-        City: {{objWeather.name}}
-    </h1>
-    <p>
-        Country: {{objWeather.country}}
-    </p>
-    <p>
-        Region: {{objWeather.region}}
-    </p>
+    <div *ngIf="!error; else notFound">
+        <ng-container *ngIf="numberOfDays === 1;else second">
+            <app-current [objWeather]="objWeather"></app-current>
+        </ng-container>
+        <ng-template #second>
+            <ng-container *ngIf="numberOfDays !== 1;">
+                <div>
+                    <h1>
+                        City: {{objWeather.name}}
+                    </h1>
+                    <p>
+                        Country: {{objWeather.country}}
+                    </p>
+                    <p>
+                        Region: {{objWeather.region}}
+                    </p>
 
+                </div>
+                <div>
+                    <ul class="row">
+                        <li class="col" style=" margin-bottom: 60px;" *ngFor="let day of objWeather.days">
+                            <div style="background-color: lightblue; height: 100%;">
+                                <p>{{day.datetime}}</p>
+                                <br>
+                                <p>
+                                    <img class=""
+                                         [src]="'https://www.weatherbit.io/static/img/icons/' + day.weatherIcon + '.png'"
+                                         alt="" itemprop="image">
+                                </p>
+                                <br>
+                                <p>{{day.weatherDescription}}</p>
+                                <br>
+                                <p>Temperature {{day.temperature}}°C</p>
+                                <p>Max Temperature {{day.max_temp}}°C</p>
+                                <br>
+                                <p>Min Temperature {{day.min_temp}}°C</p>
+                                <br>
+                                <p>Humidity {{day.humidity}}</p>
+                                <br>
+                                <p>Wind speed {{day.windSpeed}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </ng-container>
+        </ng-template>
+    </div>
 </div>
-<div>
-    <ul>
-        <li *ngFor="let day of objWeather.days">
-            <div class="row">
-                <div class="col">
-                    {{day.datetime}}
-                </div>
-                <div class="col">
-                    {{day.max_temp}}
-                </div>
-                <div class="col">
-                    <P>{{day.weatherDescription}}</P>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+
+<ng-template class="row" #notFound>
+    <div class="col">
+        <app-not-found></app-not-found>
+    </div>
+</ng-template>
+
+

@@ -12,11 +12,11 @@
                    id="city"
                    placeholder="City">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.city">
+                <mat-option *ngFor="let option of filteredOptions | async">
                     <a class="link"
                        routerLink="/"
-                       [queryParams]="{city: option.city, country: option.country }">
-                        {{option.city}}, {{option.country}}
+                       [queryParams]="{city: option }">
+                        {{option}}
                     </a>
                 </mat-option>
             </mat-autocomplete>
@@ -27,6 +27,24 @@
             </mat-error>
         </mat-form-field>
     </div>
+    <div ngModelGroup="radioButtons">
+        <label id="example-radio-group-label">Choose C or F</label>
+        <div>
+            <mat-radio-group
+                    aria-label="Select an option"
+                    name='weatherType'
+                    [value]="defaultWeatherType">
+                <mat-radio-button
+                        *ngFor="let weatherType of weatherTypes"
+                        [value]='weatherType'
+                        (click)="setWeatherType(weatherType)"
+                        name="weatherType">
+                    {{weatherType}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+
     <button mat-raised-button color="primary" [disabled]="!f.valid">Primary</button>
 </form>
 

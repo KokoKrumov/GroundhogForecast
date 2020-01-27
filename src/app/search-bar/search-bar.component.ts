@@ -8,62 +8,71 @@ import {FormControl} from '@angular/forms';
 
 
 @Component({
-  selector: 'search-bar',
-  templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss']
+    selector: 'search-bar',
+    templateUrl: './search-bar.component.html',
+    styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor(
-    private places: PlacesService,
-    private route: ActivatedRoute,
-    private router: Router) {
-  }
+    constructor(
+        private places: PlacesService,
+        private route: ActivatedRoute,
+        private router: Router) {
+    }
 
-  @Output() emitCityData = new EventEmitter();
-  myControl = new FormControl();
-  listCities: City[] = [];
-  filteredOptions: Observable<City[]>;
+    @Output() historyList = new EventEmitter();
+    myControl = new FormControl();
+    listCities: string[] = [];
+    filteredOptions: Observable<String[]>;
 
-  defaultWeatherType = 'celsius';
-  resetCity = '';
-
-
-  weatherTypes = [
-    'celsius',
-    'fahrenheit'
-  ];
+    defaultWeatherType = 'celsius';
+    resetCity = '';
 
 
-  ngOnInit() {
-  }
+    weatherTypes = [
+        'celsius',
+        'fahrenheit'
+    ];
 
-  private _filter(value: string): City[] {
-    const filterValue = value;
 
-    return this.listCities.filter(option => option.city.toLowerCase().indexOf(filterValue) === 0);
-  }
+    ngOnInit() {
+        console.log(this.defaultWeatherType);
+    }
 
-  searchForCity(city) {
-    // this.listCities = [];
-    this.places.getPlaces(city)
-      .subscribe((data: any) => {
-        data.predictions.map((item) => {
-          this.listCities.push({city: item.terms[0].value, country: item.terms[1].value});
+    private _filter(value: string): string[] {
+        const filterValue = value;
+
+        return this.listCities.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    }
+
+    searchForCity(city) {
+
+        this.places.getPlaces(city)
+            .subscribe((data: any) => {
+                this.listCities = [];
+                if (data) {
+                    data.suggestions.map((item) => {
+                        this.listCities.push(item);
+                    });
+                }
+            });
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
+    }
+
+    setWeatherType(e) {
+        this.defaultWeatherType = e;
+    }
+
+    submit(f) {
+        this.router.navigate([''], {
+            queryParams: {city: f.form.value.searchBox.city}
         });
-      });
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-          startWith(''),
-          map(value => this._filter(value))
-      );
-    console.log(this.listCities);
-  }
+        this.resetCity = '';
 
-  submit(f) {
-    this.router.navigate([''], {
-      queryParams: {city: f.form.value.searchBox.city}
-    });
 
-    this.resetCity = '';
-  }
+        this.historyList.emit(f.form.value.searchBox.city);
+    }
 }

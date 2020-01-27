@@ -8,12 +8,20 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class HistoryComponent implements OnInit {
 
-    @Input() historyList;
+    historyList: string[] = [];
 
-    constructor() {
+    constructor(
+        private activeRoute: ActivatedRoute,
+    ) {
     }
 
 
     ngOnInit() {
+        this.activeRoute.queryParams.subscribe(queryParams => {
+            if (!this.historyList.includes(queryParams.city) && queryParams.city !== undefined && queryParams.city !== '') {
+                this.historyList.push(queryParams.city);
+            }
+            console.log(this.historyList);
+        });
     }
 }

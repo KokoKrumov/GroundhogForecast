@@ -11,6 +11,5 @@ export interface ObjWeather {
     feelsLike: number;
     humidity: number;
     windSpeed: number;
-    historyList: Array<string>;
     days: Array<Days>;
 }
