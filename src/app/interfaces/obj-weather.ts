@@ -1,3 +1,5 @@
+import {Days} from './days';
+
 export interface ObjWeather {
     weatherType: string;
     name: string;
@@ -9,6 +11,5 @@ export interface ObjWeather {
     feelsLike: number;
     humidity: number;
     windSpeed: number;
-    historyList: Array<string>;
-    days: Array<object>;
+    days: Array<Days>;
 }

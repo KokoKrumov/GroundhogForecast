@@ -1,4 +1,5 @@
 export interface Days {
+  temperature: undefined;
   weatherType: string;
   max_temp: number;
   min_temp: number;
@@ -6,4 +7,5 @@ export interface Days {
   weatherDescription: string;
   humidity: number;
   windSpeed: number;
+  datetime: number;
 }

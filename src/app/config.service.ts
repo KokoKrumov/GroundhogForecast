@@ -11,11 +11,10 @@ export class ConfigService {
 
     constructor(private http: HttpClient) {
     }
-    getConfig(city: string, country: string, days: number) {
+    getConfig(city: string, days: number) {
         return this.http.get<[]>(
             this.configUrl
             + '?city=' + city
-            + ',' + country
             + '&days=' + days
             + '&key=' + this.configKeyAccess
         );

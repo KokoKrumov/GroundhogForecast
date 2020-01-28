@@ -1,19 +1,19 @@
 <div class="row justify-content-between">
-    <div class="col-7">
+    <div class="col-10">
         <mat-tab-group dynamicHeight>
             <mat-tab label="Current">
-                <app-current (historyList)="addInHistoryList($event)"></app-current>
+                <app-days [numberOfDays]="1"></app-days>
             </mat-tab>
              <mat-tab label="5 days">
-                 <app-days></app-days>
+                 <app-days [numberOfDays]="5"></app-days>
              </mat-tab>
-<!--             <mat-tab label="10 days">-->
-<!--                 <app-days></app-days>-->
-<!--             </mat-tab>-->
+             <mat-tab label="10 days">
+                 <app-days [numberOfDays]="10"></app-days>
+             </mat-tab>
         </mat-tab-group>
     </div>
 
-    <div class="col-3">
-        <app-history [historyList]="historyList"></app-history>
+    <div class="col-2">
+        <app-history></app-history>
     </div>
 </div>
