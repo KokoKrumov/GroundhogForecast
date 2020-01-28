@@ -21,37 +21,39 @@ import {HomeComponent} from './home/home.component';
 import {TabsComponent} from './tabs/tabs.component';
 import {HistoryComponent} from './history/history.component';
 import {DaysComponent} from './days/days.component';
-import { SplitPipe } from './split.pipe';
+import {SplitPipe} from './split.pipe';
+import {LocalStorageService} from './local-storage.service';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SearchBarComponent,
-        CurrentComponent,
-        NotFoundComponent,
-        HomeComponent,
-        TabsComponent,
-        HistoryComponent,
-        DaysComponent,
-        SplitPipe
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        MatInputModule,
-        MatButtonModule,
-        MatRadioModule,
-        MatCheckboxModule,
-        MatTabsModule,
-        MatAutocompleteModule
-    ],
-    providers: [
-        ConfigService
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    SearchBarComponent,
+    CurrentComponent,
+    NotFoundComponent,
+    HomeComponent,
+    TabsComponent,
+    HistoryComponent,
+    DaysComponent,
+    SplitPipe
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    MatAutocompleteModule
+  ],
+  providers: [
+    ConfigService,
+    LocalStorageService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
