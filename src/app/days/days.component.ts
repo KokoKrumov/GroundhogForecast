@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConfigService} from '../config.service';
+import {LocalStorageService} from '../local-storage.service';
 import {ActivatedRoute, NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {Days} from '../interfaces/days';
 
@@ -20,6 +21,7 @@ export class DaysComponent implements OnInit {
   constructor(
     public configService: ConfigService,
     private activeRoute: ActivatedRoute,
+    private localStorage: LocalStorageService,
     private router: Router,
   ) {
   }
